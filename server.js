@@ -24,19 +24,19 @@ app.use(express.json());
 
 const {
     getAllDataFromAPI,
-    crateDataFAV,
-    getAllDataFAv,
-    updateDigmoFAv,
-    deleteFAV,
-} = require("./controllers/coffee.controller");
+    crateDataREQ,
+    getAllDataREQ,
+    updateDigmoREQ,
+    deleteREQ,
+} = require("./controllers/digimon.controller");
 
 app.get("/", (req, res) => {
     res.send("hello");
 });
 app.get("/getData", getAllDataFromAPI);
-app.get("/FAV", getAllDataFAv);
-app.post("/createFAV", crateDataFAV);
-app.put("/updateFAV/:id", updateDigmoFAv);
-app.delete("/deleteFAV/:idx", deleteFAV);
+app.get("/REQ", getAllDataREQ);
+app.post("/createREQ", crateDataREQ);
+app.put("/updateREQ/:id", updateDigmoREQ);
+app.delete("/deleteREQ/:idx", deleteREQ);
 
 app.listen(port, () => console.log(`server is running ob port ${port}`));

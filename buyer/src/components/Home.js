@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Card, Button } from 'react-bootstrap'
+
 export class Home extends Component {
     constructor(props) {
         super(props);
@@ -19,18 +20,16 @@ export class Home extends Component {
             })
         }).catch(err => console.log(err))
         console.log(this.state.allDataDigmo);
-
     }
 
-    createFavCardItem = async (e, item) => {
+    createREQCardItem = async (e, item) => {
         e.preventDefault();
-
         const dataBody = {
             name: item.name,
             img: item.img,
             level: item.level
         }
-        await axios.post(`http://localhost:8000/createFAV`, dataBody)
+        await axios.post(`http://localhost:8000/createREQ`, dataBody)
     }
     render() {
         return (
@@ -51,7 +50,7 @@ export class Home extends Component {
                                     <Card.Title>{item.name}</Card.Title>
                                     <Card.Text> {item.level} </Card.Text>
                                     <Button variant="primary"
-                                        onClick={(e) => this.createFavCardItem(e, item)}
+                                        onClick={(e) => this.createREQCardItem(e, item)}
                                     >Request</Button>
                                 </Card.Body>
                             </Card>

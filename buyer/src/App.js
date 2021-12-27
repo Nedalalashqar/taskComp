@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Header from './components/Header'
 import Home from './components/Home'
+
 export class App extends Component {
   render() {
     return (

@@ -1,7 +1,7 @@
 'use strict'
 const axios = require('axios')
 
-const { DimgoClass, dimgomodel } = require('../models/coffee.model')
+const { DimgoClass, dimgomodel } = require('../models/digimon.model')
 
 function getAllDataFromAPI(req, res) {
     axios.get(`https://digimon-api.vercel.app/api/digimon`).then(response => {
@@ -12,7 +12,7 @@ function getAllDataFromAPI(req, res) {
     }).catch(error => console.log('OOPs don\'t data'))
 }
 
-function crateDataFAV(req, res) {
+function crateDataREQ(req, res) {
     const { name, img, level } = req.body;
 
     dimgomodel.find({ name: name }, (error, data) => {
@@ -30,13 +30,13 @@ function crateDataFAV(req, res) {
     });
 }
 
-function getAllDataFAv(req, res) {
+function getAllDataREQ(req, res) {
     dimgomodel.find({}, (error, data) => {
         res.send(data)
     })
 }
 
-function updateDigmoFAv(req, res) {
+function updateDigmoREQ(req, res) {
     const { id } = req.params;
     const { name, img, level } = req.body;
 
@@ -53,7 +53,7 @@ function updateDigmoFAv(req, res) {
     })
 }
 
-function deleteFAV(req, res) {
+function deleteREQ(req, res) {
     const { idx } = req.params;
     dimgomodel.remove({ _id: idx }, (error, data) => {
         dimgomodel.find({}, (error, data) => {
@@ -62,4 +62,4 @@ function deleteFAV(req, res) {
     })
 }
 
-module.exports = { getAllDataFromAPI, crateDataFAV, getAllDataFAv, updateDigmoFAv, deleteFAV }
+module.exports = { getAllDataFromAPI, crateDataREQ, getAllDataREQ, updateDigmoREQ, deleteREQ }

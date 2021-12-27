@@ -19,7 +19,7 @@ export class Home extends Component {
 
     // componentDidMount = async () => {
     //     try {
-    //         const getAllDataAxios = await axios.get(`http://localhost:8000/FAV`);
+    //         const getAllDataAxios = await axios.get(`http://localhost:8000/REQ`);
     //         const dataAxios = getAllDataAxios.data
     //         this.setState({
     //             allDataDigmo: dataAxios,
@@ -32,7 +32,7 @@ export class Home extends Component {
 
 
     componentDidMount = async (req, res) => {
-        await axios.get('http://localhost:9000/FAV').then(res => {
+        await axios.get('http://localhost:9000/REQ').then(res => {
             console.log(res.data);
             this.setState({
                 allDataDigmo: res.data,
@@ -43,15 +43,15 @@ export class Home extends Component {
 
     }
 
-    deleteItemFAv = async (e, idx) => {
+    deleteItemREQ = async (e, idx) => {
         e.preventDefault();
-        const spacvicDelete = await axios.delete(`http://localhost:9000/deleteFAV/${this.state.allDataDigmo[idx]._id}`);
+        const spacvicDelete = await axios.delete(`http://localhost:9000/deleteREQ/${this.state.allDataDigmo[idx]._id}`);
         this.setState({
             allDataDigmo: spacvicDelete.data
         })
     }
 
-    updateDigimonFAV = (idx) => {
+    updateDigimonREQ = (idx) => {
         this.setState({
             showModel: true,
             imgPath: this.state.allDataDigmo[idx].img,
@@ -87,7 +87,7 @@ export class Home extends Component {
             name: this.state.name,
             level: this.state.level,
         }
-        const updateDegURL = `http://localhost:9000/updateFAV/${this.state.allDataDigmo[this.state.index]._id}`;
+        const updateDegURL = `http://localhost:9000/updateREQ/${this.state.allDataDigmo[this.state.index]._id}`;
         const updateDegAxios = await axios.put(updateDegURL, UpdateBody);
         this.setState({
             allDataDigmo: updateDegAxios.data,
@@ -113,10 +113,10 @@ export class Home extends Component {
                                     <Card.Title>{item.name}</Card.Title>
                                     <Card.Text> {item.level} </Card.Text>
                                     <Button variant="danger"
-                                        onClick={(e) => this.deleteItemFAv(e, idx)}
+                                        onClick={(e) => this.deleteItemREQ(e, idx)}
                                     >Reject</Button>
                                     <Button variant="info"
-                                        onClick={() => this.updateDigimonFAV(idx)}
+                                        onClick={() => this.updateDigimonREQ(idx)}
                                     >Update</Button>
                                 </Card.Body>
                             </Card>
