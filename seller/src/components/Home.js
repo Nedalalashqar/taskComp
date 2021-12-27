@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Card, Button } from 'react-bootstrap'
 import ModalDigmond from './ModalDigmond'
 
-export class Favorite extends Component {
+export class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,30 +15,41 @@ export class Favorite extends Component {
             name: '',
             level: '',
         }
-
     }
 
-    componentDidMount = async () => {
-        try {
-            const getAllDataAxios = await axios.get(`http://localhost:8000/FAV`);
-            const dataAxios = getAllDataAxios.data
+    // componentDidMount = async () => {
+    //     try {
+    //         const getAllDataAxios = await axios.get(`http://localhost:8000/FAV`);
+    //         const dataAxios = getAllDataAxios.data
+    //         this.setState({
+    //             allDataDigmo: dataAxios,
+    //             show: true
+    //         })
+    //     } catch {
+    //         console.log('oops APi is not had data');
+    //     }
+    // }
+
+
+    componentDidMount = async (req, res) => {
+        await axios.get('http://localhost:9000/FAV').then(res => {
+            console.log(res.data);
             this.setState({
-                allDataDigmo: dataAxios,
+                allDataDigmo: res.data,
                 show: true
             })
-        } catch {
-            console.log('oops APi is not had data');
-        }
+        }).catch(err => console.log(err))
+        console.log(this.state.allDataDigmo);
+
     }
 
     deleteItemFAv = async (e, idx) => {
         e.preventDefault();
-        const spacvicDelete = await axios.delete(`http://localhost:8000/deleteFAV/${this.state.allDataDigmo[idx]._id}`);
+        const spacvicDelete = await axios.delete(`http://localhost:9000/deleteFAV/${this.state.allDataDigmo[idx]._id}`);
         this.setState({
             allDataDigmo: spacvicDelete.data
         })
     }
-
 
     updateDigimonFAV = (idx) => {
         this.setState({
@@ -48,7 +59,6 @@ export class Favorite extends Component {
             level: this.state.allDataDigmo[idx].level,
             index: idx
         })
-
     }
     onClose = () => {
         this.setState({
@@ -70,21 +80,18 @@ export class Favorite extends Component {
             level: e.target.value,
         })
     }
-
     UpdateData = async (e) => {
         e.preventDefault();
         const UpdateBody = {
             img: this.state.imgPath,
             name: this.state.name,
             level: this.state.level,
-
         }
-        const updateDegURL = `http://localhost:8000/updateFAV/${this.state.allDataDigmo[this.state.index]._id}`;
+        const updateDegURL = `http://localhost:9000/updateFAV/${this.state.allDataDigmo[this.state.index]._id}`;
         const updateDegAxios = await axios.put(updateDegURL, UpdateBody);
         this.setState({
             allDataDigmo: updateDegAxios.data,
         })
-
     }
 
     render() {
@@ -94,7 +101,7 @@ export class Favorite extends Component {
                     this.state.show &&
                     this.state.allDataDigmo.map((item, idx) => {
                         return (
-                            <Card style={{
+                            <Card key={item.name} style={{
                                 width: '20rem',
                                 display: 'inline-block',
                                 margin: '15px',
@@ -107,7 +114,7 @@ export class Favorite extends Component {
                                     <Card.Text> {item.level} </Card.Text>
                                     <Button variant="danger"
                                         onClick={(e) => this.deleteItemFAv(e, idx)}
-                                    >Delete</Button>
+                                    >Reject</Button>
                                     <Button variant="info"
                                         onClick={() => this.updateDigimonFAV(idx)}
                                     >Update</Button>
@@ -115,10 +122,8 @@ export class Favorite extends Component {
                             </Card>
                         )
                     })
-
                 }
                 {
-
                     <ModalDigmond
                         showModel={this.state.showModel}
                         close={this.onClose}
@@ -136,4 +141,4 @@ export class Favorite extends Component {
     }
 }
 
-export default Favorite
+export default Home

@@ -11,7 +11,7 @@ export class ModalDigmond extends Component {
                             <Form.Label>Update Image Path</Form.Label>
                             <Form.Control onChange={this.props.updateImgPath} value={this.props.imgPath} type="text" placeholder="Update Image Path" />
                         </Form.Group>
-                        a
+
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Update Name</Form.Label>
                             <Form.Control onChange={this.props.updatename} value={this.props.name} type="text" placeholder="Update Name" />

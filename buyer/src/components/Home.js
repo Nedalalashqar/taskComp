@@ -10,17 +10,16 @@ export class Home extends Component {
         }
     }
 
-    componentDidMount = async () => {
-        try {
-            const getAllDataAxios = await axios.get(`http://localhost:8000/getData`);
-            const dataAxios = getAllDataAxios.data
+    componentDidMount = async (req, res) => {
+        await axios.get('http://localhost:9000/getData').then(res => {
+            console.log(res.data);
             this.setState({
-                allDataDigmo: dataAxios,
+                allDataDigmo: res.data,
                 show: true
             })
-        } catch {
-            console.log('oops APi is not had data');
-        }
+        }).catch(err => console.log(err))
+        console.log(this.state.allDataDigmo);
+
     }
 
     createFavCardItem = async (e, item) => {
@@ -40,7 +39,7 @@ export class Home extends Component {
                     this.state.show &&
                     this.state.allDataDigmo.map(item => {
                         return (
-                            <Card style={{
+                            <Card key={item.name} style={{
                                 width: '20rem',
                                 display: 'inline-block',
                                 margin: '15px',
@@ -53,7 +52,7 @@ export class Home extends Component {
                                     <Card.Text> {item.level} </Card.Text>
                                     <Button variant="primary"
                                         onClick={(e) => this.createFavCardItem(e, item)}
-                                    >Add to Fav</Button>
+                                    >Request</Button>
                                 </Card.Body>
                             </Card>
                         )

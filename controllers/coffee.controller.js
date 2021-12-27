@@ -3,9 +3,6 @@ const axios = require('axios')
 
 const { DimgoClass, dimgomodel } = require('../models/coffee.model')
 
-// https://digimon-api.vercel.app/api/digimon
-
-// get data
 function getAllDataFromAPI(req, res) {
     axios.get(`https://digimon-api.vercel.app/api/digimon`).then(response => {
         const result = response.data.map(item => {
@@ -15,8 +12,6 @@ function getAllDataFromAPI(req, res) {
     }).catch(error => console.log('OOPs don\'t data'))
 }
 
-
-//create data FAV
 function crateDataFAV(req, res) {
     const { name, img, level } = req.body;
 
@@ -35,15 +30,12 @@ function crateDataFAV(req, res) {
     });
 }
 
-//get data FAV 
-
 function getAllDataFAv(req, res) {
     dimgomodel.find({}, (error, data) => {
         res.send(data)
     })
 }
 
-//update FAV
 function updateDigmoFAv(req, res) {
     const { id } = req.params;
     const { name, img, level } = req.body;
@@ -59,10 +51,7 @@ function updateDigmoFAv(req, res) {
             })
         )
     })
-
 }
-
-//delete
 
 function deleteFAV(req, res) {
     const { idx } = req.params;
@@ -72,6 +61,5 @@ function deleteFAV(req, res) {
         })
     })
 }
-
 
 module.exports = { getAllDataFromAPI, crateDataFAV, getAllDataFAv, updateDigmoFAv, deleteFAV }
