@@ -32,7 +32,7 @@ export class Home extends Component {
 
 
     componentDidMount = async (req, res) => {
-        await axios.get('http://localhost:9000/REQ').then(res => {
+        await axios.get('http://localhost:8080/REQ').then(res => {
             console.log(res.data);
             this.setState({
                 allDataDigmo: res.data,
@@ -45,7 +45,7 @@ export class Home extends Component {
 
     deleteItemREQ = async (e, idx) => {
         e.preventDefault();
-        const spacvicDelete = await axios.delete(`http://localhost:9000/deleteREQ/${this.state.allDataDigmo[idx]._id}`);
+        const spacvicDelete = await axios.delete(`http://localhost:8080/deleteREQ/${this.state.allDataDigmo[idx]._id}`);
         this.setState({
             allDataDigmo: spacvicDelete.data
         })
@@ -87,7 +87,7 @@ export class Home extends Component {
             name: this.state.name,
             level: this.state.level,
         }
-        const updateDegURL = `http://localhost:9000/updateREQ/${this.state.allDataDigmo[this.state.index]._id}`;
+        const updateDegURL = `http://localhost:8080/updateREQ/${this.state.allDataDigmo[this.state.index]._id}`;
         const updateDegAxios = await axios.put(updateDegURL, UpdateBody);
         this.setState({
             allDataDigmo: updateDegAxios.data,

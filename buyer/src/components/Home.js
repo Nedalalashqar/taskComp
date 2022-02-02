@@ -12,7 +12,7 @@ export class Home extends Component {
     }
 
     componentDidMount = async (req, res) => {
-        await axios.get('http://localhost:9000/getData').then(res => {
+        await axios.get('http://localhost:8080/getData').then(res => {
             console.log(res.data);
             this.setState({
                 allDataDigmo: res.data,
@@ -29,7 +29,7 @@ export class Home extends Component {
             img: item.img,
             level: item.level
         }
-        await axios.post(`http://localhost:8000/createREQ`, dataBody)
+        await axios.post(`http://localhost:8080/createREQ`, dataBody)
     }
     render() {
         return (
